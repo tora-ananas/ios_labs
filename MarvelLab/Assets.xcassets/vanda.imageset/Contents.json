@@ -1,0 +1,21 @@
+{
+  "images" : [
+    {
+      "filename" : "1637756929_21-gamerwall-pro-p-vedma-vanda-marvel-oboi-na-rabochii-stol-24.jpg",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
