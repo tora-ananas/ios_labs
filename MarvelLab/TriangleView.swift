@@ -19,9 +19,8 @@ class TriangleView: UIView {
     
     var path: UIBezierPath!
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
+     init() {
+         super.init(frame: .zero)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -33,7 +32,7 @@ class TriangleView: UIView {
         
         path.move(to: CGPoint(x: 0, y: self.frame.size.height))
         
-        path.addLine(to: CGPoint(x: self.frame.width, y: 0))
+        path.addLine(to: CGPoint(x: self.frame.width, y: self.frame.size.height * 0.3))
         
         path.addLine(to: CGPoint(x: self.frame.width, y: self.frame.height))
         
@@ -41,13 +40,26 @@ class TriangleView: UIView {
     }
     
     override func draw(_ rect: CGRect) {
+        super.draw(rect)
+    
         self.createTriangle()
         
-        UIColor.green.setFill()
-        path.fill()
+        //UIColor.green.setFill()
+        //path.fill()
+    }
+        //
+        //UIColor.green.setStroke()
+        //path.stroke()
+    
+    func triangleSetFill(_ colorT: UIColor) {
         
-        UIColor.green.setStroke()
-        path.stroke()
+        self.createTriangle()
+        //backgroundColor = colorT
+        UIColor.red.setFill()
+        path.fill()
+        //colorT.setStroke()
+        //path.stroke()
+
     }
     
     
