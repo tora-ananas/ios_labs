@@ -147,7 +147,6 @@
 			);
 			mainGroup = 1A4A863629A3E16F00864E1F;
 			packageReferences = (
-				1A8F6D2C29A42271009C1F49 /* XCRemoteSwiftPackageReference "paging-collection-view-layout" */,
 				1A8F6D3029A4EAE5009C1F49 /* XCRemoteSwiftPackageReference "CollectionViewPagingLayout" */,
 			);
 			productRefGroup = 1A4A864029A3E16F00864E1F /* Products */;
@@ -448,14 +447,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		1A8F6D2C29A42271009C1F49 /* XCRemoteSwiftPackageReference "paging-collection-view-layout" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/akxo/paging-collection-view-layout";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.0.4;
-			};
-		};
 		1A8F6D3029A4EAE5009C1F49 /* XCRemoteSwiftPackageReference "CollectionViewPagingLayout" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/amirdew/CollectionViewPagingLayout";
