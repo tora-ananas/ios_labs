@@ -31,7 +31,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     
     let cellWidth = (3 / 4) * UIScreen.main.bounds.width
-    let cellHeight = (4 / 7) * UIScreen.main.bounds.height
+    let cellHeight = (5 / 7) * UIScreen.main.bounds.height
     let sectionSpacing = (1 / 8) * UIScreen.main.bounds.width
     let colors: [UIColor] = [UIColor(red: 170/255, green: 40/255, blue: 78/255, alpha: 1),
                              UIColor(red: 80/255, green: 58/255, blue: 115/255, alpha: 1),
@@ -83,17 +83,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     override func viewDidLoad() {
         super.viewDidLoad()
         setLayout()
-        //configure()
     }
-    
-    //private func configure() {
-    //    var imageView = logoImageView
-    //    let x = view.frame.size.width / 2
-    //    let y = view.frame.size.height * 0.1
-    //    let widthImage = view.frame.size.width / 3
-    //    let heightImage = view.frame.size.height / 16
-    //    imageView = UIImageView(frame: CGRect(x: x - (widthImage / 2), y: y, width: widthImage, height: heightImage))
-    //}
     
     private func setLayout() {
         // addSubview
@@ -125,13 +115,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             
         }
         
-        //collectionView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        
-        //collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        //collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        //collectionView.heightAnchor.constraint(equalToConstant: cellHeight).isActive = true
-        //collectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor).isActive = true
-        
         collectionView.snp.makeConstraints { maker in
             maker.leading.equalToSuperview()
             maker.trailing.equalToSuperview()
@@ -140,15 +123,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         }
         
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellId)
-        
-        //NSLayoutConstraint.activate([
-        //    triangleView.topAnchor.constraint(equalTo: view.centerYAnchor),
-        //    triangleView.leftAnchor.constraint(equalTo: view.leftAnchor),
-        //    triangleView.rightAnchor.constraint(equalTo: view.rightAnchor),
-        //    triangleView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-        //])
-        
-        //constaints
     }
 
 }
