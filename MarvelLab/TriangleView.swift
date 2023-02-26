@@ -41,25 +41,21 @@ class TriangleView: UIView {
     
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-    
         self.createTriangle()
-        
-        //UIColor.green.setFill()
+        //UIColor.red.setFill()
         //path.fill()
-    }
-        //
-        //UIColor.green.setStroke()
+        //UIColor.red.setStroke()
         //path.stroke()
+        //
+    }
     
     func triangleSetFill(_ colorT: UIColor) {
-        
         self.createTriangle()
-        //backgroundColor = colorT
-        UIColor.red.setFill()
+        colorT.setFill()
         path.fill()
-        //colorT.setStroke()
-        //path.stroke()
-
+        colorT.setStroke()
+        path.stroke()
+        //backgroundColor = colorT
     }
     
     
