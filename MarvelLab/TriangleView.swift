@@ -35,7 +35,7 @@ class TriangleView: UIView {
         
         path.move(to: CGPoint(x: 0, y: self.frame.size.height))
         
-        path.addLine(to: CGPoint(x: self.frame.width, y: self.frame.size.height * 0.3))
+        path.addLine(to: CGPoint(x: self.frame.width, y: self.frame.size.height * 0.4))
         
         path.addLine(to: CGPoint(x: self.frame.width, y: self.frame.height))
         
@@ -49,10 +49,12 @@ class TriangleView: UIView {
         path.fill()
         colorTriangle.setStroke()
         path.stroke()
+        
     }
     
     func triangleSetFill(_ colorT: UIColor) {
         colorTriangle = colorT
+        setNeedsDisplay()
     }
     
     

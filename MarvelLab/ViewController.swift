@@ -15,12 +15,15 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        triangleView.triangleSetFill(colors[indexPath.item])
-        triangleView.setNeedsDisplay()
-        print("INDEXPATH : ", indexPath.item)
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
+        
+        let center = self.view.convert(self.collectionView.center, to: self.collectionView)
+        let index = collectionView.indexPathForItem(at: center)
+
+        triangleView.triangleSetFill(colors[index!.item])
+
         let pic = pics[indexPath.item]
-        print("PICS : ", pics[indexPath.item])
         let imagView = UIImageView()
         imagView.image = UIImage(named: pic)
         cell.contentView.addSubview(imagView)
@@ -40,7 +43,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                              UIColor(red: 187/255, green: 14/255, blue: 103/255, alpha: 1),
                              UIColor(red: 238/255, green: 212/255, blue: 10/255, alpha: 1),
                              UIColor(red: 181/255, green: 40/255, blue: 88/255, alpha: 1),
-                             UIColor(red: 204/255, green: 9/255, blue: 10/255, alpha: 1),
+                             UIColor(red: 87/255, green: 31/255, blue: 59/255, alpha: 1),
                              UIColor(red: 226/255, green: 33/255, blue: 33/255, alpha: 1),
                              UIColor(red: 238/255, green: 92/255, blue: 41/255, alpha: 1)]
     let pics: [String] = ["venom", "tonistark", "Thor", "Loki", "Vision", "vanda", "Deadpool", "Doc"]
