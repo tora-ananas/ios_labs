@@ -18,12 +18,15 @@ class TriangleView: UIView {
     */
     
     var path: UIBezierPath!
+    var colorTriangle: UIColor
     
      init() {
+         self.colorTriangle = .clear
          super.init(frame: .zero)
     }
     
     required init?(coder aDecoder: NSCoder) {
+        self.colorTriangle = .clear
         super.init(coder: aDecoder)
     }
     
@@ -42,21 +45,16 @@ class TriangleView: UIView {
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         self.createTriangle()
-        //UIColor.red.setFill()
-        //path.fill()
-        //UIColor.red.setStroke()
-        //path.stroke()
-        //
+        colorTriangle.setFill()
+        path.fill()
+        colorTriangle.setStroke()
+        path.stroke()
     }
     
     func triangleSetFill(_ colorT: UIColor) {
-        self.createTriangle()
-        colorT.setFill()
-        path.fill()
-        colorT.setStroke()
-        path.stroke()
-        //backgroundColor = colorT
+        colorTriangle = colorT
     }
+    
     
     
 

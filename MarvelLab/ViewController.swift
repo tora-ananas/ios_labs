@@ -16,9 +16,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         triangleView.triangleSetFill(colors[indexPath.item])
-        //triangleView.triangleSetFill(.red)
+        triangleView.setNeedsDisplay()
+        print("INDEXPATH : ", indexPath.item)
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
         let pic = pics[indexPath.item]
+        print("PICS : ", pics[indexPath.item])
         let imagView = UIImageView()
         imagView.image = UIImage(named: pic)
         cell.contentView.addSubview(imagView)
@@ -31,7 +33,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     
     let cellWidth = (3 / 4) * UIScreen.main.bounds.width
-    let cellHeight = (5 / 7) * UIScreen.main.bounds.height
+    let cellHeight = (4.5 / 7) * UIScreen.main.bounds.height
     let sectionSpacing = (1 / 8) * UIScreen.main.bounds.width
     let colors: [UIColor] = [UIColor(red: 170/255, green: 40/255, blue: 78/255, alpha: 1),
                              UIColor(red: 80/255, green: 58/255, blue: 115/255, alpha: 1),
