@@ -20,7 +20,14 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         let center = self.view.convert(self.collectionView.center, to: self.collectionView)
         let index = collectionView.indexPathForItem(at: center)
+    
+        //let viewHorizontalCenter =  self.view.bounds.width / 2
+        //let center = CGPoint(x: viewHorizontalCenter, y: self.collectionView.center.y)
 
+        //let convertedPoint = self.view.convert(center, to: self.collectionView)
+        //print("CONVERT : ", convertedPoint)
+        //let index = collectionView.indexPathForItem(at: convertedPoint)
+        
         triangleView.triangleSetFill(colors[index!.item])
 
         let pic = pics[indexPath.item]
