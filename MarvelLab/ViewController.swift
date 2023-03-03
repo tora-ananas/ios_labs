@@ -8,39 +8,7 @@
 import SnapKit
 import UIKit
 
-class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return colors.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
-        
-        let center = self.view.convert(self.collectionView.center, to: self.collectionView)
-        let index = collectionView.indexPathForItem(at: center)
-    
-        //let viewHorizontalCenter =  self.view.bounds.width / 2
-        //let center = CGPoint(x: viewHorizontalCenter, y: self.collectionView.center.y)
-
-        //let convertedPoint = self.view.convert(center, to: self.collectionView)
-        //print("CONVERT : ", convertedPoint)
-        //let index = collectionView.indexPathForItem(at: convertedPoint)
-        
-        triangleView.triangleSetFill(colors[index!.item])
-
-        let pic = pics[indexPath.item]
-        let imagView = UIImageView()
-        imagView.image = UIImage(named: pic)
-        cell.contentView.addSubview(imagView)
-        imagView.frame = CGRect(x: 0, y: 0, width: cell.contentView.frame.size.width, height: cell.contentView.frame.size.height)
-        imagView.clipsToBounds = true
-        imagView.contentMode = .scaleAspectFill
-        
-        return cell
-    }
-    
+class ViewController: UIViewController, UICollectionViewDelegate {
     
     let cellWidth = (3 / 4) * UIScreen.main.bounds.width
     let cellHeight = (4.5 / 7) * UIScreen.main.bounds.height
@@ -70,6 +38,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         collectionView.decelerationRate = .fast
         collectionView.dataSource = self
         collectionView.delegate = self
+        //collectionView.contentInset = UIEdgeInsets(top: 50, left: 10, bottom: 50, right: 20)
         
         return collectionView
      
@@ -115,15 +84,16 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         triangleView.backgroundColor = backgroundColor
         
         logoImageView.snp.makeConstraints { maker in
+            maker.top.equalToSuperview().inset(40)
+            maker.width.equalToSuperview().multipliedBy(0.6)
+            maker.height.equalToSuperview().multipliedBy(0.1)
             maker.centerX.equalToSuperview()
-            maker.top.equalToSuperview().inset(view.frame.size.height * 0.08)
-            maker.width.equalTo(view.frame.size.width / 3)
-            maker.height.equalTo(view.frame.size.height / 16)
         }
                 
         titleLabel.snp.makeConstraints { maker in
+            maker.top.equalTo(logoImageView.snp.bottom).offset(20)
+            //maker.trailing.leading.equalToSuperview().inset(20)
             maker.centerX.equalToSuperview()
-            maker.top.equalTo(logoImageView).inset(50)
             
         }
         
@@ -131,7 +101,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             maker.leading.equalToSuperview()
             maker.trailing.equalToSuperview()
             maker.height.equalTo(cellHeight)
-            maker.top.equalTo(titleLabel).inset(70)
+            maker.top.equalTo(titleLabel.snp.bottom).offset(20)
         }
         
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellId)
@@ -139,3 +109,45 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 
 }
 
+extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return colors.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
+        
+        let center = self.view.convert(self.collectionView.center, to: self.collectionView)
+        let index = collectionView.indexPathForItem(at: center)
+    
+        //let viewHorizontalCenter =  self.view.bounds.width / 2
+        //let center = CGPoint(x: viewHorizontalCenter, y: self.collectionView.center.y)
+
+        //let convertedPoint = self.view.convert(center, to: self.collectionView)
+        //print("CONVERT : ", convertedPoint)
+        //let index = collectionView.indexPathForItem(at: convertedPoint)
+        
+        triangleView.triangleSetFill(colors[index!.item])
+
+        let pic = pics[indexPath.item]
+        let imagView = UIImageView()
+        imagView.image = UIImage(named: pic)
+        cell.contentView.addSubview(imagView)
+        imagView.frame = CGRect(x: 0, y: 0, width: cell.contentView.frame.size.width, height: cell.contentView.frame.size.height)
+        imagView.clipsToBounds = true
+        imagView.contentMode = .scaleAspectFill
+        
+        return cell
+    }
+    
+    /*func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let width = collectionView.frame.width - (collectionView.contentInset.right + collectionView.contentInset.left)
+        return CGSize(width: collectionView.frame.width, height: collectionView.frame.height - (collectionView.contentInset.))
+    }*/
+
+    
+}
