@@ -63,12 +63,21 @@ class ViewController: UIViewController, UICollectionViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        design()
+        registerCollectionViewCells()
         setLayout()
     }
     
+    private func design() {
+        view.backgroundColor = backgroundColor
+    }
+    
+    private func registerCollectionViewCells() {
+        collectionView.register(MyCell.self, forCellWithReuseIdentifier: cellId)
+        }
+    
     private func setLayout() {
         // addSubview
-        view.backgroundColor = backgroundColor
         view.addSubview(triangleView)
         view.addSubview(collectionView)
         view.addSubview(logoImageView)
@@ -92,9 +101,8 @@ class ViewController: UIViewController, UICollectionViewDelegate {
                 
         titleLabel.snp.makeConstraints { maker in
             maker.top.equalTo(logoImageView.snp.bottom).offset(20)
-            //maker.trailing.leading.equalToSuperview().inset(20)
+            //maker.trailing.leading.equalToSuperview()
             maker.centerX.equalToSuperview()
-            
         }
         
         collectionView.snp.makeConstraints { maker in
@@ -103,10 +111,41 @@ class ViewController: UIViewController, UICollectionViewDelegate {
             maker.height.equalTo(cellHeight)
             maker.top.equalTo(titleLabel.snp.bottom).offset(20)
         }
-        
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellId)
     }
+}
 
+final class MyCell: UICollectionViewCell {
+    
+    private var view: UIView = {
+       let view = UIView()
+        view.backgroundColor = .red
+        //view.layer.cornerRadius = 30
+        return view
+    }()
+    
+    private lazy var imageView: UIImageView = {
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height))
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 30
+        return imageView
+    }()
+            
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        view.addSubview(imageView)
+        contentView.addSubview(view)
+        
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
+    func changeImage(imageName: String){
+        imageView.image = UIImage(named: imageName)
+    }
 }
 
 extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -118,30 +157,17 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFl
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
-        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! MyCell
+        let pic = pics[indexPath.item]
+        cell.changeImage(imageName: pic)
+
         let center = self.view.convert(self.collectionView.center, to: self.collectionView)
         let index = collectionView.indexPathForItem(at: center)
-    
-        //let viewHorizontalCenter =  self.view.bounds.width / 2
-        //let center = CGPoint(x: viewHorizontalCenter, y: self.collectionView.center.y)
 
-        //let convertedPoint = self.view.convert(center, to: self.collectionView)
-        //print("CONVERT : ", convertedPoint)
-        //let index = collectionView.indexPathForItem(at: convertedPoint)
-        
         triangleView.triangleSetFill(colors[index!.item])
-
-        let pic = pics[indexPath.item]
-        let imagView = UIImageView()
-        imagView.image = UIImage(named: pic)
-        cell.contentView.addSubview(imagView)
-        imagView.frame = CGRect(x: 0, y: 0, width: cell.contentView.frame.size.width, height: cell.contentView.frame.size.height)
-        imagView.clipsToBounds = true
-        imagView.contentMode = .scaleAspectFill
-        
         return cell
     }
+    
     
     /*func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
