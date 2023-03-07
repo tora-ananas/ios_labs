@@ -1,0 +1,179 @@
+//
+//  ViewController.swift
+//  MarvelLab
+//
+//  Created by Effective on 20.02.2023.
+//
+
+import SnapKit
+import UIKit
+
+class ViewController: UIViewController, UICollectionViewDelegate {
+    
+    let cellWidth = (3 / 4) * UIScreen.main.bounds.width
+    let cellHeight = (4.5 / 7) * UIScreen.main.bounds.height
+    let sectionSpacing = (1 / 8) * UIScreen.main.bounds.width
+    let colors: [UIColor] = [UIColor(red: 170/255, green: 40/255, blue: 78/255, alpha: 1),
+                             UIColor(red: 80/255, green: 58/255, blue: 115/255, alpha: 1),
+                             UIColor(red: 187/255, green: 14/255, blue: 103/255, alpha: 1),
+                             UIColor(red: 238/255, green: 212/255, blue: 10/255, alpha: 1),
+                             UIColor(red: 181/255, green: 40/255, blue: 88/255, alpha: 1),
+                             UIColor(red: 87/255, green: 31/255, blue: 59/255, alpha: 1),
+                             UIColor(red: 226/255, green: 33/255, blue: 33/255, alpha: 1),
+                             UIColor(red: 238/255, green: 92/255, blue: 41/255, alpha: 1)]
+    let pics: [String] = ["venom", "tonistark", "Thor", "Loki", "Vision", "vanda", "Deadpool", "Doc"]
+    let cellId = "cell id"
+    let backgroundColor = UIColor(red: 42/255, green: 39/255, blue: 43/255, alpha: 1)
+    
+    private lazy var collectionView: UICollectionView = {
+        let layout = PagingCollectionViewLayout()
+        layout.itemSize = CGSize(width: cellWidth, height: cellHeight)
+        layout.scrollDirection = .horizontal
+        layout.sectionInset = UIEdgeInsets(top: 0, left: sectionSpacing, bottom: 0, right: sectionSpacing)
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.backgroundColor = .clear
+        collectionView.decelerationRate = .fast
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        //collectionView.contentInset = UIEdgeInsets(top: 50, left: 10, bottom: 50, right: 20)
+        
+        return collectionView
+     
+    }()
+    
+    private let logoImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "marvel.png")
+        return imageView
+    }()
+    
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Choose your hero!"
+        label.font = UIFont(name: "GillSans-Bold", size: 26)
+        //label.font = UIFont.boldSystemFont(ofSize: 26)
+        label.textColor = .white
+        return label
+    }()
+    
+    private let triangleView = TriangleView()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        design()
+        registerCollectionViewCells()
+        setLayout()
+    }
+    
+    private func design() {
+        view.backgroundColor = backgroundColor
+    }
+    
+    private func registerCollectionViewCells() {
+        collectionView.register(MyCell.self, forCellWithReuseIdentifier: cellId)
+        }
+    
+    private func setLayout() {
+        // addSubview
+        view.addSubview(triangleView)
+        view.addSubview(collectionView)
+        view.addSubview(logoImageView)
+        view.addSubview(titleLabel)
+        
+        triangleView.snp.makeConstraints{ maker in
+            maker.top.equalToSuperview()
+            maker.left.equalToSuperview()
+            maker.right.equalToSuperview()
+            maker.bottom.equalToSuperview()
+            
+        }
+        triangleView.backgroundColor = backgroundColor
+        
+        logoImageView.snp.makeConstraints { maker in
+            maker.top.equalToSuperview().inset(40)
+            maker.width.equalToSuperview().multipliedBy(0.6)
+            maker.height.equalToSuperview().multipliedBy(0.1)
+            maker.centerX.equalToSuperview()
+        }
+                
+        titleLabel.snp.makeConstraints { maker in
+            maker.top.equalTo(logoImageView.snp.bottom).offset(20)
+            //maker.trailing.leading.equalToSuperview()
+            maker.centerX.equalToSuperview()
+        }
+        
+        collectionView.snp.makeConstraints { maker in
+            maker.leading.equalToSuperview()
+            maker.trailing.equalToSuperview()
+            maker.height.equalTo(cellHeight)
+            maker.top.equalTo(titleLabel.snp.bottom).offset(20)
+        }
+    }
+}
+
+final class MyCell: UICollectionViewCell {
+    
+    private var view: UIView = {
+       let view = UIView()
+        view.backgroundColor = .red
+        //view.layer.cornerRadius = 30
+        return view
+    }()
+    
+    private lazy var imageView: UIImageView = {
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height))
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 30
+        return imageView
+    }()
+            
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        view.addSubview(imageView)
+        contentView.addSubview(view)
+        
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
+    func changeImage(imageName: String){
+        imageView.image = UIImage(named: imageName)
+    }
+}
+
+extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return colors.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! MyCell
+        let pic = pics[indexPath.item]
+        cell.changeImage(imageName: pic)
+
+        let center = self.view.convert(self.collectionView.center, to: self.collectionView)
+        let index = collectionView.indexPathForItem(at: center)
+
+        triangleView.triangleSetFill(colors[index!.item])
+        return cell
+    }
+    
+    
+    /*func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let width = collectionView.frame.width - (collectionView.contentInset.right + collectionView.contentInset.left)
+        return CGSize(width: collectionView.frame.width, height: collectionView.frame.height - (collectionView.contentInset.))
+    }*/
+
+    
+}
