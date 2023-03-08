@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1A469FB329A5270E00B9370F /* TriangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A469FB229A5270E00B9370F /* TriangleView.swift */; };
-		1A469FB529A55D0200B9370F /* CustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A469FB429A55D0200B9370F /* CustomCollectionViewCell.swift */; };
+		1A48C21429B8E17F0095FA85 /* MyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A48C21329B8E17F0095FA85 /* MyCell.swift */; };
 		1A4A864329A3E16F00864E1F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4A864229A3E16F00864E1F /* AppDelegate.swift */; };
 		1A4A864529A3E16F00864E1F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4A864429A3E16F00864E1F /* SceneDelegate.swift */; };
 		1A4A864729A3E16F00864E1F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4A864629A3E16F00864E1F /* ViewController.swift */; };
@@ -20,7 +20,7 @@
 
 /* Begin PBXFileReference section */
 		1A469FB229A5270E00B9370F /* TriangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriangleView.swift; sourceTree = "<group>"; };
-		1A469FB429A55D0200B9370F /* CustomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewCell.swift; sourceTree = "<group>"; };
+		1A48C21329B8E17F0095FA85 /* MyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCell.swift; sourceTree = "<group>"; };
 		1A4A863F29A3E16F00864E1F /* MarvelLab.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarvelLab.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A4A864229A3E16F00864E1F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1A4A864429A3E16F00864E1F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -70,8 +70,8 @@
 				1A4A864229A3E16F00864E1F /* AppDelegate.swift */,
 				1A4A864429A3E16F00864E1F /* SceneDelegate.swift */,
 				1A4A864629A3E16F00864E1F /* ViewController.swift */,
+				1A48C21329B8E17F0095FA85 /* MyCell.swift */,
 				1A8F6D2E29A426DA009C1F49 /* PagingCollectionViewLayout.swift */,
-				1A469FB429A55D0200B9370F /* CustomCollectionViewCell.swift */,
 				1A469FB229A5270E00B9370F /* TriangleView.swift */,
 				1A4A864B29A3E17400864E1F /* Assets.xcassets */,
 				1A4A864D29A3E17400864E1F /* LaunchScreen.storyboard */,
@@ -215,9 +215,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A469FB329A5270E00B9370F /* TriangleView.swift in Sources */,
-				1A469FB529A55D0200B9370F /* CustomCollectionViewCell.swift in Sources */,
 				1A8F6D2F29A426DA009C1F49 /* PagingCollectionViewLayout.swift in Sources */,
 				1A4A864729A3E16F00864E1F /* ViewController.swift in Sources */,
+				1A48C21429B8E17F0095FA85 /* MyCell.swift in Sources */,
 				1A4A864329A3E16F00864E1F /* AppDelegate.swift in Sources */,
 				1A4A864529A3E16F00864E1F /* SceneDelegate.swift in Sources */,
 			);

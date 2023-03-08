@@ -8,12 +8,12 @@
 import SnapKit
 import UIKit
 
-class ViewController: UIViewController, UICollectionViewDelegate {
+final class ViewController: UIViewController, UICollectionViewDelegate {
     
-    let cellWidth = (3 / 4) * UIScreen.main.bounds.width
-    let cellHeight = (4.5 / 7) * UIScreen.main.bounds.height
-    let sectionSpacing = (1 / 8) * UIScreen.main.bounds.width
-    let colors: [UIColor] = [UIColor(red: 170/255, green: 40/255, blue: 78/255, alpha: 1),
+    private let cellWidth = (3 / 4) * UIScreen.main.bounds.width
+    private let cellHeight = (4.5 / 7) * UIScreen.main.bounds.height
+    private let sectionSpacing = (1 / 8) * UIScreen.main.bounds.width
+    private let colors: [UIColor] = [UIColor(red: 170/255, green: 40/255, blue: 78/255, alpha: 1),
                              UIColor(red: 80/255, green: 58/255, blue: 115/255, alpha: 1),
                              UIColor(red: 187/255, green: 14/255, blue: 103/255, alpha: 1),
                              UIColor(red: 238/255, green: 212/255, blue: 10/255, alpha: 1),
@@ -21,9 +21,9 @@ class ViewController: UIViewController, UICollectionViewDelegate {
                              UIColor(red: 87/255, green: 31/255, blue: 59/255, alpha: 1),
                              UIColor(red: 226/255, green: 33/255, blue: 33/255, alpha: 1),
                              UIColor(red: 238/255, green: 92/255, blue: 41/255, alpha: 1)]
-    let pics: [String] = ["venom", "tonistark", "Thor", "Loki", "Vision", "vanda", "Deadpool", "Doc"]
-    let cellId = "cell id"
-    let backgroundColor = UIColor(red: 42/255, green: 39/255, blue: 43/255, alpha: 1)
+    private let pics: [String] = ["Venom", "Toni", "Thor", "Loki", "Vision", "Vanda", "Deadpool", "Doc"]
+    private let cellId = "cell id"
+    private let backgroundColor = UIColor(red: 42/255, green: 39/255, blue: 43/255, alpha: 1)
     
     private lazy var collectionView: UICollectionView = {
         let layout = PagingCollectionViewLayout()
@@ -84,10 +84,7 @@ class ViewController: UIViewController, UICollectionViewDelegate {
         view.addSubview(titleLabel)
         
         triangleView.snp.makeConstraints{ maker in
-            maker.top.equalToSuperview()
-            maker.left.equalToSuperview()
-            maker.right.equalToSuperview()
-            maker.bottom.equalToSuperview()
+            maker.edges.equalToSuperview()
             
         }
         triangleView.backgroundColor = backgroundColor
@@ -114,40 +111,6 @@ class ViewController: UIViewController, UICollectionViewDelegate {
     }
 }
 
-final class MyCell: UICollectionViewCell {
-    
-    private var view: UIView = {
-       let view = UIView()
-        view.backgroundColor = .red
-        //view.layer.cornerRadius = 30
-        return view
-    }()
-    
-    private lazy var imageView: UIImageView = {
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height))
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 30
-        return imageView
-    }()
-            
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        view.addSubview(imageView)
-        contentView.addSubview(view)
-        
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
-    
-    func changeImage(imageName: String){
-        imageView.image = UIImage(named: imageName)
-    }
-}
-
 extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     
@@ -157,14 +120,18 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFl
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! MyCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? MyCell else {
+            return UICollectionViewCell()
+        }
         let pic = pics[indexPath.item]
         cell.changeImage(imageName: pic)
 
         let center = self.view.convert(self.collectionView.center, to: self.collectionView)
-        let index = collectionView.indexPathForItem(at: center)
-
-        triangleView.triangleSetFill(colors[index!.item])
+        guard let index = collectionView.indexPathForItem(at: center) else {
+            return UICollectionViewCell()
+        }
+        
+        triangleView.triangleSetFill(colors[index.item])
         return cell
     }
     

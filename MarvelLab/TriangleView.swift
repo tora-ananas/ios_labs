@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TriangleView: UIView {
+final class TriangleView: UIView {
 
     /*
     // Only override draw() if you perform custom drawing.
@@ -17,8 +17,8 @@ class TriangleView: UIView {
     }
     */
     
-    var path: UIBezierPath!
-    var colorTriangle: UIColor
+    private var path: UIBezierPath?
+    private var colorTriangle: UIColor
     
      init() {
          self.colorTriangle = .clear
@@ -33,22 +33,22 @@ class TriangleView: UIView {
     func createTriangle() {
         path = UIBezierPath()
         
-        path.move(to: CGPoint(x: 0, y: self.frame.size.height))
+        path?.move(to: CGPoint(x: 0, y: self.frame.size.height))
         
-        path.addLine(to: CGPoint(x: self.frame.width, y: self.frame.size.height * 0.4))
+        path?.addLine(to: CGPoint(x: self.frame.width, y: self.frame.size.height * 0.4))
         
-        path.addLine(to: CGPoint(x: self.frame.width, y: self.frame.height))
+        path?.addLine(to: CGPoint(x: self.frame.width, y: self.frame.height))
         
-        path.close()
+        path?.close()
     }
     
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         self.createTriangle()
         colorTriangle.setFill()
-        path.fill()
+        path?.fill()
         colorTriangle.setStroke()
-        path.stroke()
+        path?.stroke()
         
     }
     

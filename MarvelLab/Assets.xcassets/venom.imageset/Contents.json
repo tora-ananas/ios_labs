@@ -1,11 +1,11 @@
 {
   "images" : [
     {
-      "filename" : "venom-kartinki-supergeroya-25.jpg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "Venom@2x.jpg",
       "idiom" : "universal",
       "scale" : "2x"
     },
