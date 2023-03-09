@@ -13,14 +13,14 @@ final class ViewController: UIViewController, UICollectionViewDelegate {
     private let cellWidth = (3 / 4) * UIScreen.main.bounds.width
     private let cellHeight = (4.5 / 7) * UIScreen.main.bounds.height
     private let sectionSpacing = (1 / 8) * UIScreen.main.bounds.width
-    private let colors: [UIColor] = [UIColor(red: 170/255, green: 40/255, blue: 78/255, alpha: 1),
-                             UIColor(red: 80/255, green: 58/255, blue: 115/255, alpha: 1),
-                             UIColor(red: 187/255, green: 14/255, blue: 103/255, alpha: 1),
+    private let colors: [UIColor] = [UIColor(red: 137/255, green: 144/255, blue: 244/255, alpha: 1),
+                             UIColor(red: 249/255, green: 202/255, blue: 77/255, alpha: 1),
+                             UIColor(red: 224/255, green: 44/255, blue: 70/255, alpha: 1),
                              UIColor(red: 238/255, green: 212/255, blue: 10/255, alpha: 1),
-                             UIColor(red: 181/255, green: 40/255, blue: 88/255, alpha: 1),
-                             UIColor(red: 87/255, green: 31/255, blue: 59/255, alpha: 1),
+                             UIColor(red: 226/255, green: 41/255, blue: 104/255, alpha: 1),
+                             UIColor(red: 91/255, green: 33/255, blue: 64/255, alpha: 1),
                              UIColor(red: 226/255, green: 33/255, blue: 33/255, alpha: 1),
-                             UIColor(red: 238/255, green: 92/255, blue: 41/255, alpha: 1)]
+                             UIColor(red: 235/255, green: 87/255, blue: 41/255, alpha: 1)]
     private let pics: [String] = ["Venom", "Toni", "Thor", "Loki", "Vision", "Vanda", "Deadpool", "Doc"]
     private let cellId = "cell id"
     private let backgroundColor = UIColor(red: 42/255, green: 39/255, blue: 43/255, alpha: 1)
@@ -124,17 +124,19 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFl
             return UICollectionViewCell()
         }
         let pic = pics[indexPath.item]
-        cell.changeImage(imageName: pic)
-
-        let center = self.view.convert(self.collectionView.center, to: self.collectionView)
-        guard let index = collectionView.indexPathForItem(at: center) else {
-            return UICollectionViewCell()
-        }
+        cell.changeImageAndLabel(imageName: pic)
         
-        triangleView.triangleSetFill(colors[index.item])
         return cell
     }
     
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let center = self.view.convert(self.collectionView.center, to: self.collectionView)
+        guard let index = collectionView.indexPathForItem(at: center) else {
+            return
+        }
+        
+        triangleView.triangleSetFill(colors[index.item])
+    }
     
     /*func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
