@@ -7,19 +7,12 @@
 
 import UIKit
 
-
-
 final class MyCell: UICollectionViewCell {
-    /*private var view: UIView = {
-       let view = UIView()
-        view.backgroundColor = .red
-        return view
-    }()*/
-    
-    /*struct HeroModel {
+
+    struct Model {
         let name: String
         let image: UIImage
-    }*/
+    }
     
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
@@ -42,8 +35,6 @@ final class MyCell: UICollectionViewCell {
         
         setLayout()
         setConstraints()
-        //contentView.addSubview(view)
-        
     }
     
     private func setLayout() {
@@ -67,7 +58,7 @@ final class MyCell: UICollectionViewCell {
         super.init(coder: coder)
     }
     
-    func setup(with model: ViewController.HeroModel){
+    func setup(with model: Model){
         imageView.image = model.image
         heroNameLabel.text = model.name
     }

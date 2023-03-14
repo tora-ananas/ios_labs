@@ -22,19 +22,15 @@ final class ViewController: UIViewController, UICollectionViewDelegate {
                              UIColor(red: 226/255, green: 33/255, blue: 33/255, alpha: 1),
                              UIColor(red: 235/255, green: 87/255, blue: 41/255, alpha: 1)]
     
-    struct HeroModel {
-        let name: String
-        let image: UIImage
-    }
     
-    private let namesAndPics: [HeroModel] = [HeroModel(name: "Venom", image: UIImage(named: "Venom")!),
-                                             HeroModel(name: "Toni", image: UIImage(named: "Toni")!),
-                                             HeroModel(name: "Thor", image: UIImage(named: "Thor")!),
-                                             HeroModel(name: "Loki", image: UIImage(named: "Loki")!),
-                                             HeroModel(name: "Vision", image: UIImage(named: "Vision")!),
-                                             HeroModel(name: "Vanda", image: UIImage(named: "Vanda")!),
-                                             HeroModel(name: "Deadpool", image: UIImage(named: "Deadpool")!),
-                                             HeroModel(name: "Doc", image: UIImage(named: "Doc")!)]
+    private let namesAndPics: [MyCell.Model] = [MyCell.Model(name: "Venom", image: UIImage(named: "Venom")!),
+                                                MyCell.Model(name: "Toni", image: UIImage(named: "Toni")!),
+                                                MyCell.Model(name: "Thor", image: UIImage(named: "Thor")!),
+                                                MyCell.Model(name: "Loki", image: UIImage(named: "Loki")!),
+                                                MyCell.Model(name: "Vision", image: UIImage(named: "Vision")!),
+                                                MyCell.Model(name: "Vanda", image: UIImage(named: "Vanda")!),
+                                                MyCell.Model(name: "Deadpool", image: UIImage(named: "Deadpool")!),
+                                                MyCell.Model(name: "Doc", image: UIImage(named: "Doc")!)]
                                                     
     
     private let cellId = "cell id"
@@ -77,20 +73,22 @@ final class ViewController: UIViewController, UICollectionViewDelegate {
     
     private let triangleView = TriangleView()
     
+    private let secondViewController = SecondViewController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         design()
         registerCollectionViewCells()
         setLayout()
         //someAction(tapGesture)
-        functionTap()
+        //functionTap()
     }
     
     private func functionTap(){
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.someAction(_:)))
         tapGesture.numberOfTapsRequired = 1
         tapGesture.numberOfTouchesRequired = 1
-//        collectionView.addGestureRecognizer(tapGesture)
+        //collectionView.addGestureRecognizer(tapGesture)
         collectionView.isUserInteractionEnabled = true
     }
     
@@ -156,8 +154,7 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFl
             return UICollectionViewCell()
         }
         let pic = namesAndPics[indexPath.item]
-        print(pic)
-        //cell.setup(with: pic)
+        cell.setup(with: pic)
         
         return cell
     }
@@ -172,7 +169,11 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFl
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        let hero = namesAndPics[indexPath.item]
+        let image = hero.image
+        let model = SecondViewController.Model(image: image)
+        secondViewController.setup(with: model)
+        navigationController?.pushViewController(secondViewController, animated: true)
     }
     
     
