@@ -124,7 +124,7 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFl
             return UICollectionViewCell()
         }
         let pic = pics[indexPath.item]
-        cell.changeImageAndLabel(imageName: pic)
+        cell.setup(with: pic)
         
         return cell
     }

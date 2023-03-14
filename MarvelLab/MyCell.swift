@@ -56,7 +56,7 @@ final class MyCell: UICollectionViewCell {
         super.init(coder: coder)
     }
     
-    func changeImageAndLabel(imageName: String){
+    func setup(with imageName: String){
         imageView.image = UIImage(named: imageName)
         heroNameLabel.text = imageName
     }

@@ -21,7 +21,7 @@ final class TriangleView: UIView {
     private var colorTriangle: UIColor
     
      init() {
-         self.colorTriangle = .clear
+         self.colorTriangle = UIColor(red: 137/255, green: 144/255, blue: 244/255, alpha: 1)
          super.init(frame: .zero)
     }
     
