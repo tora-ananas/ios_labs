@@ -21,9 +21,25 @@ final class ViewController: UIViewController, UICollectionViewDelegate {
                              UIColor(red: 91/255, green: 33/255, blue: 64/255, alpha: 1),
                              UIColor(red: 226/255, green: 33/255, blue: 33/255, alpha: 1),
                              UIColor(red: 235/255, green: 87/255, blue: 41/255, alpha: 1)]
-    private let pics: [String] = ["Venom", "Toni", "Thor", "Loki", "Vision", "Vanda", "Deadpool", "Doc"]
+    
+    struct HeroModel {
+        let name: String
+        let image: UIImage
+    }
+    
+    private let namesAndPics: [HeroModel] = [HeroModel(name: "Venom", image: UIImage(named: "Venom")!),
+                                             HeroModel(name: "Toni", image: UIImage(named: "Toni")!),
+                                             HeroModel(name: "Thor", image: UIImage(named: "Thor")!),
+                                             HeroModel(name: "Loki", image: UIImage(named: "Loki")!),
+                                             HeroModel(name: "Vision", image: UIImage(named: "Vision")!),
+                                             HeroModel(name: "Vanda", image: UIImage(named: "Vanda")!),
+                                             HeroModel(name: "Deadpool", image: UIImage(named: "Deadpool")!),
+                                             HeroModel(name: "Doc", image: UIImage(named: "Doc")!)]
+                                                    
+    
     private let cellId = "cell id"
     private let backgroundColor = UIColor(red: 42/255, green: 39/255, blue: 43/255, alpha: 1)
+    private var tapGesture = UITapGestureRecognizer()
     
     private lazy var collectionView: UICollectionView = {
         let layout = PagingCollectionViewLayout()
@@ -66,6 +82,22 @@ final class ViewController: UIViewController, UICollectionViewDelegate {
         design()
         registerCollectionViewCells()
         setLayout()
+        //someAction(tapGesture)
+        functionTap()
+    }
+    
+    private func functionTap(){
+        tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.someAction(_:)))
+        tapGesture.numberOfTapsRequired = 1
+        tapGesture.numberOfTouchesRequired = 1
+//        collectionView.addGestureRecognizer(tapGesture)
+        collectionView.isUserInteractionEnabled = true
+    }
+    
+    @objc func someAction(_ sender: UITapGestureRecognizer) {
+        let secondViewController = SecondViewController()
+        navigationController?.pushViewController(secondViewController, animated: true)
+        print("GO ON")
     }
     
     private func design() {
@@ -105,7 +137,7 @@ final class ViewController: UIViewController, UICollectionViewDelegate {
         collectionView.snp.makeConstraints { maker in
             maker.leading.equalToSuperview()
             maker.trailing.equalToSuperview()
-            maker.height.equalTo(cellHeight)
+            maker.bottom.equalToSuperview()
             maker.top.equalTo(titleLabel.snp.bottom).offset(20)
         }
     }
@@ -123,8 +155,9 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFl
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? MyCell else {
             return UICollectionViewCell()
         }
-        let pic = pics[indexPath.item]
-        cell.changeImageAndLabel(imageName: pic)
+        let pic = namesAndPics[indexPath.item]
+        print(pic)
+        //cell.setup(with: pic)
         
         return cell
     }
@@ -138,11 +171,9 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFl
         triangleView.triangleSetFill(colors[index.item])
     }
     
-    /*func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let width = collectionView.frame.width - (collectionView.contentInset.right + collectionView.contentInset.left)
-        return CGSize(width: collectionView.frame.width, height: collectionView.frame.height - (collectionView.contentInset.))
-    }*/
-
+    }
+    
     
 }

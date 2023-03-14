@@ -16,8 +16,13 @@ final class MyCell: UICollectionViewCell {
         return view
     }()*/
     
+    /*struct HeroModel {
+        let name: String
+        let image: UIImage
+    }*/
+    
     private lazy var imageView: UIImageView = {
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height))
+        let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 30
@@ -47,17 +52,23 @@ final class MyCell: UICollectionViewCell {
     }
     
     private func setConstraints() {
-        heroNameLabel.snp.remakeConstraints { maker in
+        heroNameLabel.snp.makeConstraints { maker in
             maker.bottom.equalToSuperview().inset(20)
-            maker.left.equalToSuperview().inset(20)        }
+            maker.left.right.equalToSuperview().inset(20)
+        }
+        
+        imageView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
     
-    func changeImageAndLabel(imageName: String){
-        imageView.image = UIImage(named: imageName)
-        heroNameLabel.text = imageName
+    func setup(with model: ViewController.HeroModel){
+        imageView.image = model.image
+        heroNameLabel.text = model.name
     }
 }
