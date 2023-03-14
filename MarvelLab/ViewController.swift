@@ -23,19 +23,9 @@ final class ViewController: UIViewController, UICollectionViewDelegate {
                              UIColor(red: 235/255, green: 87/255, blue: 41/255, alpha: 1)]
     
     
-    private let namesAndPics: [MyCell.Model] = [MyCell.Model(name: "Venom", image: UIImage(named: "Venom")!),
-                                                MyCell.Model(name: "Toni", image: UIImage(named: "Toni")!),
-                                                MyCell.Model(name: "Thor", image: UIImage(named: "Thor")!),
-                                                MyCell.Model(name: "Loki", image: UIImage(named: "Loki")!),
-                                                MyCell.Model(name: "Vision", image: UIImage(named: "Vision")!),
-                                                MyCell.Model(name: "Vanda", image: UIImage(named: "Vanda")!),
-                                                MyCell.Model(name: "Deadpool", image: UIImage(named: "Deadpool")!),
-                                                MyCell.Model(name: "Doc", image: UIImage(named: "Doc")!)]
-                                                    
-    
     private let cellId = "cell id"
     private let backgroundColor = UIColor(red: 42/255, green: 39/255, blue: 43/255, alpha: 1)
-    private var tapGesture = UITapGestureRecognizer()
+    //private var tapGesture = UITapGestureRecognizer()
     
     private lazy var collectionView: UICollectionView = {
         let layout = PagingCollectionViewLayout()
@@ -80,24 +70,10 @@ final class ViewController: UIViewController, UICollectionViewDelegate {
         design()
         registerCollectionViewCells()
         setLayout()
-        //someAction(tapGesture)
-        //functionTap()
+
     }
     
-    private func functionTap(){
-        tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.someAction(_:)))
-        tapGesture.numberOfTapsRequired = 1
-        tapGesture.numberOfTouchesRequired = 1
-        //collectionView.addGestureRecognizer(tapGesture)
-        collectionView.isUserInteractionEnabled = true
-    }
-    
-    @objc func someAction(_ sender: UITapGestureRecognizer) {
-        let secondViewController = SecondViewController()
-        navigationController?.pushViewController(secondViewController, animated: true)
-        print("GO ON")
-    }
-    
+
     private func design() {
         view.backgroundColor = backgroundColor
     }
@@ -153,8 +129,12 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFl
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? MyCell else {
             return UICollectionViewCell()
         }
-        let pic = namesAndPics[indexPath.item]
-        cell.setup(with: pic)
+        
+        let heroData = myHeroData[indexPath.item]
+        let name = heroData.name
+        let image = heroData.image
+        let model = MyCell.Model(name: name, image: image)
+        cell.setup(with: model)
         
         return cell
     }
@@ -169,9 +149,12 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFl
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let hero = namesAndPics[indexPath.item]
-        let image = hero.image
-        let model = SecondViewController.Model(image: image)
+        let heroData = myHeroData[indexPath.item]
+        print(heroData)
+        let image = heroData.image
+        let name = heroData.name
+        let description = heroData.text
+        let model = SecondViewController.Model(image: image, name: name, description: description)
         secondViewController.setup(with: model)
         navigationController?.pushViewController(secondViewController, animated: true)
     }
