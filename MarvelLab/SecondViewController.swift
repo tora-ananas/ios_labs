@@ -33,7 +33,7 @@ final class SecondViewController: UIViewController {
         heroNameLabel.font = UIFont(name: "GillSans-Bold", size: 26)
         heroNameLabel.textColor = .white
         heroNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        heroNameLabel.textAlignment = NSTextAlignment.center
+        heroNameLabel.textAlignment = .center
         return heroNameLabel
     }()
     
@@ -41,11 +41,14 @@ final class SecondViewController: UIViewController {
         let descriptionTextView = UITextView()
         descriptionTextView.font = UIFont(name: "GillSans-Bold", size: 24)
         descriptionTextView.textColor = .white
-        descriptionTextView.textAlignment = NSTextAlignment.center
+        descriptionTextView.textAlignment = .center
         descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
-        descriptionTextView.contentInsetAdjustmentBehavior = .automatic
+        //descriptionTextView.contentInsetAdjustmentBehavior = .automatic
         descriptionTextView.isEditable = false
         descriptionTextView.backgroundColor = .clear
+        descriptionTextView.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        descriptionTextView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        
         return descriptionTextView
     }()
     
@@ -57,17 +60,13 @@ final class SecondViewController: UIViewController {
     
     private func setConstraints() {
         
-        heroNameLabel.snp.makeConstraints { maker in
-            maker.top.equalTo(view.snp.centerY).multipliedBy(1.4)
-            maker.leading.trailing.equalToSuperview()
-            //maker.left.equalToSuperview().inset(20)
-            //maker.centerX.equalToSuperview()
-            //maker.bottom.equalTo(descriptionTextView).inset(20)
+        heroNameLabel.snp.makeConstraints {
+            $0.bottom.equalTo(descriptionTextView.snp.top)
+            $0.left.right.equalToSuperview().inset(20)
         }
         
         descriptionTextView.snp.makeConstraints{ maker in
-            maker.top.equalTo(heroNameLabel).inset(40)
-            maker.bottom.equalToSuperview()
+            maker.bottom.equalToSuperview().inset(20)
             maker.left.right.equalToSuperview().inset(20)
             maker.height.equalToSuperview().multipliedBy(0.2)
         }

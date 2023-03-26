@@ -63,8 +63,6 @@ final class ViewController: UIViewController, UICollectionViewDelegate {
     
     private let triangleView = TriangleView()
     
-    private let secondViewController = SecondViewController()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         design()
@@ -72,6 +70,10 @@ final class ViewController: UIViewController, UICollectionViewDelegate {
         setLayout()
 
     }
+    
+//    override func viewWillAppear(_ animated: Bool) {
+//        <#code#>
+//    }
     
 
     private func design() {
@@ -127,7 +129,7 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFl
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? MyCell else {
-            return UICollectionViewCell()
+                return UICollectionViewCell()
         }
         
         let heroData = myHeroData[indexPath.item]
@@ -155,9 +157,8 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFl
         let name = heroData.name
         let description = heroData.text
         let model = SecondViewController.Model(image: image, name: name, description: description)
+        let secondViewController = SecondViewController()
         secondViewController.setup(with: model)
         navigationController?.pushViewController(secondViewController, animated: true)
     }
-    
-    
 }
