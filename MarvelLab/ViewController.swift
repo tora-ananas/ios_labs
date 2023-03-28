@@ -7,25 +7,29 @@
 
 import SnapKit
 import UIKit
+import Kingfisher
 
 final class ViewController: UIViewController, UICollectionViewDelegate {
     
     private let cellWidth = (3 / 4) * UIScreen.main.bounds.width
-    private let cellHeight = (4.5 / 7) * UIScreen.main.bounds.height
+    private let cellHeight = (3 / 4) * UIScreen.main.bounds.width
     private let sectionSpacing = (1 / 8) * UIScreen.main.bounds.width
-    private let colors: [UIColor] = [UIColor(red: 137/255, green: 144/255, blue: 244/255, alpha: 1),
-                             UIColor(red: 249/255, green: 202/255, blue: 77/255, alpha: 1),
-                             UIColor(red: 224/255, green: 44/255, blue: 70/255, alpha: 1),
-                             UIColor(red: 238/255, green: 212/255, blue: 10/255, alpha: 1),
-                             UIColor(red: 226/255, green: 41/255, blue: 104/255, alpha: 1),
-                             UIColor(red: 91/255, green: 33/255, blue: 64/255, alpha: 1),
-                             UIColor(red: 226/255, green: 33/255, blue: 33/255, alpha: 1),
-                             UIColor(red: 235/255, green: 87/255, blue: 41/255, alpha: 1)]
+    private let colors: [UIColor] = [UIColor(red: 172/255, green: 218/255, blue: 244/255, alpha: 1),
+                             UIColor(red: 255/255, green: 244/255, blue: 89/255, alpha: 1),
+                             UIColor(red: 0/255, green: 251/255, blue: 194/255, alpha: 1),
+                             UIColor(red: 147/255, green: 72/255, blue: 150/255, alpha: 1),
+                             UIColor(red: 73/255, green: 146/255, blue: 81/255, alpha: 1),
+                             UIColor(red: 91/255, green: 202/255, blue: 231/255, alpha: 1),
+                             UIColor(red: 73/255, green: 38/255, blue: 109/255, alpha: 1),
+                             UIColor(red: 0/255, green: 178/255, blue: 112/255, alpha: 1),
+                             UIColor(red: 16/255, green: 142/255, blue: 187/255, alpha: 1),
+                             UIColor(red: 148/255, green: 70/255, blue: 159/255, alpha: 1)]
     
     
     private let cellId = "cell id"
-    private let backgroundColor = UIColor(red: 42/255, green: 39/255, blue: 43/255, alpha: 1)
-    //private var tapGesture = UITapGestureRecognizer()
+    private let backgroundColor = UIColor(red: 213/255, green: 26/255, blue: 45/255, alpha: 1)
+    
+    
     
     private lazy var collectionView: UICollectionView = {
         let layout = PagingCollectionViewLayout()
@@ -40,22 +44,28 @@ final class ViewController: UIViewController, UICollectionViewDelegate {
         collectionView.decelerationRate = .fast
         collectionView.dataSource = self
         collectionView.delegate = self
+        collectionView.layer.shadowColor = UIColor.black.cgColor
+        collectionView.layer.shadowOffset = CGSize(width: 10, height: 10)
+        collectionView.layer.shadowRadius = 10
+        collectionView.layer.shadowOpacity = 10
         //collectionView.contentInset = UIEdgeInsets(top: 50, left: 10, bottom: 50, right: 20)
-        
         return collectionView
      
     }()
     
     private let logoImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "marvel.png")
+        DispatchQueue.main.async { [self] in
+            let url = URL(string: "https://upload.wikimedia.org/wikipedia/ru/thumb/c/c8/Rick_and_Morty_logo.png/320px-Rick_and_Morty_logo.png")
+            imageView.downloaded(from: url!)
+        }
         return imageView
     }()
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Choose your hero!"
-        label.font = UIFont(name: "GillSans-Bold", size: 26)
+        label.text = "Choose your character!"
+        label.font = UIFont(name: "Futura-Bold", size: 26)
         //label.font = UIFont.boldSystemFont(ofSize: 26)
         label.textColor = .white
         return label
@@ -68,13 +78,14 @@ final class ViewController: UIViewController, UICollectionViewDelegate {
         design()
         registerCollectionViewCells()
         setLayout()
-
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        <#code#>
-//    }
+    private let apiManager = APIManager()
     
+//    override func viewWillAppear(_ animated: Bool) {
+  //
+    //}
+
 
     private func design() {
         view.backgroundColor = backgroundColor
@@ -132,12 +143,15 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFl
                 return UICollectionViewCell()
         }
         
-        let heroData = myHeroData[indexPath.item]
-        let name = heroData.name
-        let image = heroData.image
-        let model = MyCell.Model(name: name, image: image)
-        cell.setup(with: model)
-        
+        apiManager.getCharacter(indexPath: indexPath.item) { [weak self] valuesRickMorty in
+            DispatchQueue.main.async {
+                //TODO: add "quard let .." with default image when we cant download
+                let url = URL(string: valuesRickMorty.image)
+                let name = valuesRickMorty.name
+                let model = MyCell.Model(name: name, image: url!)
+                cell.setup(with: model)
+            }
+        }
         return cell
     }
     
@@ -151,14 +165,38 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFl
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let heroData = myHeroData[indexPath.item]
-        print(heroData)
-        let image = heroData.image
-        let name = heroData.name
-        let description = heroData.text
-        let model = SecondViewController.Model(image: image, name: name, description: description)
-        let secondViewController = SecondViewController()
-        secondViewController.setup(with: model)
-        navigationController?.pushViewController(secondViewController, animated: true)
+        
+        apiManager.getCharacter(indexPath: indexPath.item) { [weak self] valuesRickMorty in
+            DispatchQueue.main.async {
+                let url = URL(string: valuesRickMorty.image)
+                let name = valuesRickMorty.name
+                let description = valuesRickMorty.species
+                let model = SecondViewController.Model(image: url!, name: name, description: description)
+                let secondViewController = SecondViewController()
+                secondViewController.setup(with: model)
+                self?.navigationController?.pushViewController(secondViewController, animated: true)
+            }
+        }
     }
 }
+
+extension UIImageView {
+        func downloaded(from url: URL) {
+                self.kf.setImage(with: url)
+            }
+    }
+
+extension UIView {
+    func gradient(colors: [CGColor], startPoint: CGPoint, endPoint: CGPoint, opacity: Float, location: [NSNumber]?, cornerRadius: CGFloat) {
+            let gradientLayer = CAGradientLayer()
+            gradientLayer.frame = bounds
+            gradientLayer.colors = colors
+            gradientLayer.startPoint = startPoint
+            gradientLayer.endPoint = endPoint
+            gradientLayer.opacity = opacity
+            gradientLayer.locations = location
+            gradientLayer.cornerRadius = cornerRadius
+            layer.addSublayer(gradientLayer)
+        }
+}
+

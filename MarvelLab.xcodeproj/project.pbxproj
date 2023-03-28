@@ -15,7 +15,11 @@
 		1A4A864729A3E16F00864E1F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4A864629A3E16F00864E1F /* ViewController.swift */; };
 		1A4A864C29A3E17400864E1F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A4A864B29A3E17400864E1F /* Assets.xcassets */; };
 		1A4A864F29A3E17400864E1F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A4A864D29A3E17400864E1F /* LaunchScreen.storyboard */; };
-		1A4F398C29C0E71400A7D705 /* HeroData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4F398B29C0E71400A7D705 /* HeroData.swift */; };
+		1A50D11529D0852000C5A910 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A50D11429D0852000C5A910 /* APIManager.swift */; };
+		1A50D11729D089A600C5A910 /* RickMortyApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A50D11629D089A600C5A910 /* RickMortyApi.swift */; };
+		1A50D11929D0938E00C5A910 /* RickMortyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A50D11829D0938E00C5A910 /* RickMortyData.swift */; };
+		1A50D11B29D0BAB800C5A910 /* RickMortyEpisodeApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A50D11A29D0BAB800C5A910 /* RickMortyEpisodeApi.swift */; };
+		1A50D11E29D0D16D00C5A910 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 1A50D11D29D0D16D00C5A910 /* Kingfisher */; };
 		1A8F6D2F29A426DA009C1F49 /* PagingCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8F6D2E29A426DA009C1F49 /* PagingCollectionViewLayout.swift */; };
 		BDB435C8669F192C57530257 /* Pods_MarvelLab.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84E35A82673F6FDDF236032F /* Pods_MarvelLab.framework */; };
 /* End PBXBuildFile section */
@@ -31,7 +35,10 @@
 		1A4A864B29A3E17400864E1F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1A4A864E29A3E17400864E1F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1A4A865029A3E17400864E1F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1A4F398B29C0E71400A7D705 /* HeroData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroData.swift; sourceTree = "<group>"; };
+		1A50D11429D0852000C5A910 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
+		1A50D11629D089A600C5A910 /* RickMortyApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RickMortyApi.swift; sourceTree = "<group>"; };
+		1A50D11829D0938E00C5A910 /* RickMortyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RickMortyData.swift; sourceTree = "<group>"; };
+		1A50D11A29D0BAB800C5A910 /* RickMortyEpisodeApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RickMortyEpisodeApi.swift; sourceTree = "<group>"; };
 		1A8F6D2E29A426DA009C1F49 /* PagingCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingCollectionViewLayout.swift; sourceTree = "<group>"; };
 		7E9166ABA8D177D0DF0BAFDD /* Pods-MarvelLab.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarvelLab.debug.xcconfig"; path = "Target Support Files/Pods-MarvelLab/Pods-MarvelLab.debug.xcconfig"; sourceTree = "<group>"; };
 		84E35A82673F6FDDF236032F /* Pods_MarvelLab.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MarvelLab.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -43,6 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A50D11E29D0D16D00C5A910 /* Kingfisher in Frameworks */,
 				BDB435C8669F192C57530257 /* Pods_MarvelLab.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -76,7 +84,10 @@
 				1A4A864629A3E16F00864E1F /* ViewController.swift */,
 				1A48C21529B9FCA20095FA85 /* SecondViewController.swift */,
 				1A48C21329B8E17F0095FA85 /* MyCell.swift */,
-				1A4F398B29C0E71400A7D705 /* HeroData.swift */,
+				1A50D11829D0938E00C5A910 /* RickMortyData.swift */,
+				1A50D11629D089A600C5A910 /* RickMortyApi.swift */,
+				1A50D11429D0852000C5A910 /* APIManager.swift */,
+				1A50D11A29D0BAB800C5A910 /* RickMortyEpisodeApi.swift */,
 				1A8F6D2E29A426DA009C1F49 /* PagingCollectionViewLayout.swift */,
 				1A469FB229A5270E00B9370F /* TriangleView.swift */,
 				1A4A864B29A3E17400864E1F /* Assets.xcassets */,
@@ -121,6 +132,9 @@
 			dependencies = (
 			);
 			name = MarvelLab;
+			packageProductDependencies = (
+				1A50D11D29D0D16D00C5A910 /* Kingfisher */,
+			);
 			productName = MarvelLab;
 			productReference = 1A4A863F29A3E16F00864E1F /* MarvelLab.app */;
 			productType = "com.apple.product-type.application";
@@ -151,6 +165,7 @@
 			mainGroup = 1A4A863629A3E16F00864E1F;
 			packageReferences = (
 				1A8F6D3029A4EAE5009C1F49 /* XCRemoteSwiftPackageReference "CollectionViewPagingLayout" */,
+				1A50D11C29D0D16D00C5A910 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 1A4A864029A3E16F00864E1F /* Products */;
 			projectDirPath = "";
@@ -221,12 +236,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A469FB329A5270E00B9370F /* TriangleView.swift in Sources */,
-				1A4F398C29C0E71400A7D705 /* HeroData.swift in Sources */,
 				1A8F6D2F29A426DA009C1F49 /* PagingCollectionViewLayout.swift in Sources */,
+				1A50D11529D0852000C5A910 /* APIManager.swift in Sources */,
 				1A4A864729A3E16F00864E1F /* ViewController.swift in Sources */,
 				1A48C21429B8E17F0095FA85 /* MyCell.swift in Sources */,
 				1A48C21629B9FCA20095FA85 /* SecondViewController.swift in Sources */,
 				1A4A864329A3E16F00864E1F /* AppDelegate.swift in Sources */,
+				1A50D11929D0938E00C5A910 /* RickMortyData.swift in Sources */,
+				1A50D11729D089A600C5A910 /* RickMortyApi.swift in Sources */,
+				1A50D11B29D0BAB800C5A910 /* RickMortyEpisodeApi.swift in Sources */,
 				1A4A864529A3E16F00864E1F /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -441,6 +459,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		1A50D11C29D0D16D00C5A910 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 		1A8F6D3029A4EAE5009C1F49 /* XCRemoteSwiftPackageReference "CollectionViewPagingLayout" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/amirdew/CollectionViewPagingLayout";
@@ -450,6 +476,14 @@
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1A50D11D29D0D16D00C5A910 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1A50D11C29D0D16D00C5A910 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1A4A863729A3E16F00864E1F /* Project object */;
 }

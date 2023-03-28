@@ -6,25 +6,28 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class SecondViewController: UIViewController {
 
     struct Model {
-        let image: UIImage
+        let image: URL
         let name: String
         let description: String
     }
     
+    private let apiManager = APIManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
+        view.backgroundColor = UIColor(red: 213/255, green: 26/255, blue: 45/255, alpha: 1)
         setLayout()
         setConstraints()
     }
     
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
@@ -53,6 +56,7 @@ final class SecondViewController: UIViewController {
     }()
     
     private func setLayout() {
+        view.gradient(colors: [UIColor.clear.cgColor, UIColor.black.cgColor], startPoint: CGPoint.init(x: 0.5, y: 0.0), endPoint: CGPoint.init(x: 0.5, y: 1.0), opacity: 1, location: [0,1], cornerRadius: 0)
         view.addSubview(imageView)
         view.addSubview(heroNameLabel)
         view.addSubview(descriptionTextView)
@@ -68,7 +72,7 @@ final class SecondViewController: UIViewController {
         descriptionTextView.snp.makeConstraints{ maker in
             maker.bottom.equalToSuperview().inset(20)
             maker.left.right.equalToSuperview().inset(20)
-            maker.height.equalToSuperview().multipliedBy(0.2)
+            maker.height.equalToSuperview().multipliedBy(0.1)
         }
         
         imageView.snp.makeConstraints{ maker in
@@ -81,9 +85,11 @@ final class SecondViewController: UIViewController {
     
     
     func setup(with model: Model){
-        imageView.image = model.image
+        imageView.kf.setImage(with: model.image)
         heroNameLabel.text = model.name
         descriptionTextView.text = model.description
     }
 
+
 }
+

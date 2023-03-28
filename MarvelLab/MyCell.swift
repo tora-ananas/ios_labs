@@ -6,12 +6,13 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class MyCell: UICollectionViewCell {
 
     struct Model {
         let name: String
-        let image: UIImage
+        let image: URL
     }
     
     private lazy var imageView: UIImageView = {
@@ -24,7 +25,7 @@ final class MyCell: UICollectionViewCell {
     
     private lazy var heroNameLabel: UILabel = {
         let heroNameLabel = UILabel()
-        heroNameLabel.font = UIFont(name: "GillSans-Bold", size: 26)
+        heroNameLabel.font = UIFont(name: "Futura-Bold", size: 26)
         heroNameLabel.textColor = .white
         return heroNameLabel
         
@@ -39,6 +40,7 @@ final class MyCell: UICollectionViewCell {
     
     private func setLayout() {
         contentView.addSubview(imageView)
+        contentView.gradient(colors: [UIColor.clear.cgColor, UIColor.black.cgColor], startPoint: CGPoint.init(x: 0.5, y: 0.0), endPoint: CGPoint.init(x: 0.5, y: 1.0), opacity: 0.5, location: [0,1], cornerRadius: 30)
         contentView.addSubview(heroNameLabel)
     }
     
@@ -59,7 +61,7 @@ final class MyCell: UICollectionViewCell {
     }
     
     func setup(with model: Model){
-        imageView.image = model.image
+        imageView.kf.setImage(with: model.image)
         heroNameLabel.text = model.name
     }
 }
